@@ -69,9 +69,9 @@ def verify_word_ladder(ladder):
         return False
     if ladder[0] == ladder[-1]:
         return True
-    ll = len(ladder)-1
+    ll = len(ladder) - 1
     for i in range(ll):
-        if not _adjacent(ladder[i], ladder[i+1]):
+        if not _adjacent(ladder[i], ladder[i + 1]):
             return False
             break
     return True
