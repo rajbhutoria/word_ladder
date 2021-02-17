@@ -1,8 +1,8 @@
 #!/bin/python3
 
 from collections import deque
-from copy import *
 import copy
+
 
 def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     '''
@@ -19,12 +19,14 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     ```
     may give the output
     ```
-    ['stone', 'shone', 'phone', 'phony', 'peony', 'penny', 'benny', 'bonny', 'boney', 'money']
+    ['stone', 'shone', 'phone', 'phony', 'peony', 'penny',
+    'benny', 'bonny', 'boney', 'money']
     ```
     but the possible outputs are not unique,
     so you may also get the output
     ```
-    ['stone', 'shone', 'shote', 'shots', 'soots', 'hoots', 'hooty', 'hooey', 'honey', 'money']
+    ['stone', 'shone', 'shote', 'shots', 'soots', 'hoots',
+    'hooty', 'hooey', 'honey', 'money']
     ```
     (We cannot use doctests here because the outputs are not unique.)
 
@@ -33,19 +35,17 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     '''
     dic = open("words5.dict")
     wl = dic.read().split("\n")
-
     s = []
     s.append(start_word)
     q = deque()
     q.append(s)
-    
     if start_word == end_word:
         return [start_word]
     else:
         while len(q) != 0:
             dq = q.popleft()
             for word in set(wl):
-                if _adjacent(word,dq[-1]):
+                if _adjacent(word, dq[-1]):
                     if word == end_word:
                         dq.append(word)
                         return dq
@@ -53,6 +53,7 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
                     s_copy.append(word)
                     q.append(s_copy)
                     wl.remove(word)
+
 
 def verify_word_ladder(ladder):
     '''
@@ -64,16 +65,17 @@ def verify_word_ladder(ladder):
     >>> verify_word_ladder(['stone', 'shone', 'phony'])
     False
     '''
-    if ladder==[]:
+    if ladder == []:
         return False
     if ladder[0] == ladder[-1]:
         return True
     ll = len(ladder)-1
     for i in range(ll):
-        if _adjacent(ladder[i],ladder[i+1]) == False:
+        if not _adjacent(ladder[i], ladder[i+1]):
             return False
             break
     return True
+
 
 def _adjacent(word1, word2):
     '''
